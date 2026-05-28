@@ -1,0 +1,76 @@
+[model]
+vocab_size            = 151936
+embed_dim             = 2560
+num_heads             = 16
+num_layers            = 32
+max_seq_len           = 1024
+dropout               = 0.0
+use_rope              = true
+rope_base             = 1_000_000
+use_yarn              = false
+yarn_scale            = 4.0
+yarn_original_max_len = 512
+use_swiglu            = true
+n_kv_heads            = 4
+use_qk_norm           = true
+soft_cap              = 0
+use_flash_attn        = true
+attn_head_dim         = 256
+
+[gdn]
+hybrid_ratio = 3
+gdn_head_dim = 128
+gdn_v_heads  = 32
+
+[moh]
+use_moh          = true
+moh_shared_heads = 8
+moh_top_k_routed = 4
+
+[mtp]
+mtp_steps  = 1
+mtp_weight = 0.3
+
+[training]
+batch_size            = 8
+gradient_accumulation = 64
+max_grad_norm         = 1.0
+num_epochs            = 1
+num_workers           = 4
+use_compile           = true
+compile_mode          = "default"
+benchmark_steps       = 10
+
+[optimizer]
+learning_rate  = 2e-4
+weight_decay   = 0.1
+adam_beta1     = 0.9
+adam_beta2     = 0.95
+adam_eps       = 1e-8
+
+[scheduler]
+warmup_ratio   = 0.02
+decay_ratio    = 0.15
+min_lr_ratio   = 0.1
+
+[data]
+data_file      = "./pretrain_data.bin"
+val_tokens     = 20_000_000
+use_packing    = true
+
+[checkpoint]
+checkpoint_file      = "./Model/NaylisGDN_4B_pretrain.pt"
+save_every_hours     = 1.0
+validate_every_steps = 100
+val_batches          = 25
+
+[precision]
+use_fp8 = true
+
+[huggingface]
+hf_repo          = ""
+hf_push_interval = 1800
+
+[tokenizer]
+model          = "Qwen/Qwen3-0.6B"
+special_tokens = []

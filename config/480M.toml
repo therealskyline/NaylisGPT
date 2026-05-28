@@ -1,0 +1,64 @@
+[model]
+vocab_size            = 49152
+embed_dim             = 1280
+num_heads             = 20
+num_layers            = 24
+max_seq_len           = 1024
+dropout               = 0.0
+use_rope              = true
+use_yarn              = false
+yarn_scale            = 4.0
+yarn_original_max_len = 512
+use_swiglu            = true
+n_kv_heads            = 5
+use_qk_norm           = true
+soft_cap              = 0
+use_flash_attn        = true
+
+[gdn]
+hybrid_ratio = 3
+gdn_head_dim = 64
+
+[training]
+batch_size            = 97
+gradient_accumulation = 8
+max_grad_norm         = 1.0
+num_epochs            = 1
+num_workers           = 4
+use_compile           = true
+compile_mode          = "default"
+benchmark_steps       = 20
+
+[optimizer]
+learning_rate  = 4e-4
+weight_decay   = 0.1
+adam_beta1     = 0.9
+adam_beta2     = 0.95
+adam_eps       = 1e-8
+
+[scheduler]
+warmup_ratio   = 0.03
+decay_ratio    = 0.15
+min_lr_ratio   = 0.1
+
+[data]
+data_file      = "./pretrain_data.bin"
+val_tokens     = 15_000_000
+use_packing    = true
+
+[checkpoint]
+checkpoint_file      = "./Model/NaylisGDN_pretrain.pt"
+save_every_hours     = 1.0
+validate_every_steps = 500
+val_batches          = 50
+
+[precision]
+use_fp8 = true
+
+[huggingface]
+hf_repo          = ""
+hf_push_interval = 1800
+
+[tokenizer]
+model          = "HuggingFaceTB/cosmo2-tokenizer"
+special_tokens = []

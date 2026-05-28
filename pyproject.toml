@@ -1,0 +1,22 @@
+[build-system]
+requires      = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name        = "naylisgdn"
+version     = "0.1.0"
+description = "Decoder-only transformer — FP8 pretraining (Hopper H100/H200+)"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.3.0",
+    "transformers>=4.40.0",
+    "datasets>=2.19.0",
+    "huggingface-hub>=0.23.0",
+    "tokenizers>=0.19.0",
+    "tqdm>=4.66.0",
+    "numpy>=1.26.0",
+]
+
+[tool.setuptools.packages.find]
+where   = ["."]
+include = ["naylisgdn*"]
